@@ -215,6 +215,8 @@ struct DefaultFormat<'a> {
 
 impl<'a> DefaultFormat<'a> {
     fn write(mut self, record: &Record) -> io::Result<()> {
+        write!(self.buf, "\x1B[0K")?;
+        
         self.write_timestamp()?;
         self.write_level(record)?;
         self.write_module_path(record)?;
